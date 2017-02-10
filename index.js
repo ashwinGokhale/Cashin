@@ -1,15 +1,15 @@
 var express = require('express');
 var app = express();
 
+app.set('port', (process.env.PORT || 5000));
+
 app.get('/', function (req, res) {
     res.sendFile( __dirname + "/public/" + "index.html" );
 });
 
 app.use("/static", express.static(__dirname + '/static'));
 
-var server = app.listen(5000, function () {
-    var port = server.address().port;
-
-    console.log("Listening on port %s", port);
+var server = app.listen(app.get('port'), function () {
+    console.log("Listening on port %s", app.get('port'));
 });
 

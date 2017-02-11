@@ -1,0 +1,24 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(rel='stylesheet', href='static/css/bootstrap.min.css')
+        script(src='static/js/jquery-3.1.1.min.js')
+        script(src='static/js/bootstrap.js')
+        title Party Setup
+    body
+        .text-center(style='width: 100%')
+            .text-center(style='width: 25%; margin: 0 auto')
+                h1.text-center Event Setup
+                br
+                .form-group.row
+                    label.col-xs-2.col-form-label(for='eventName') Event Name:
+                    .col-xs-10
+                        input#eventName.form-control(type='text', placeholder='Alpha Beta Chi Frat Party')
+                .form-group.row
+                    label.col-xs-2.col-form-label(for='eventCost') Cost
+                    .col-xs-10
+                        input#eventCost.form-control(type='number', placeholder='5')
+                |
+                button.btn.btn-primary(onclick="window.open('/finishsetup', '_blank');") Submit

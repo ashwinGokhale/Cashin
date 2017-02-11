@@ -4,12 +4,19 @@
   "description": "Web application to allow for fast single transactions using Square",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ashwin Gokhale",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.14.1"
+    "body-parser": "^1.16.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.1",
+    "express-handlebars": "^3.0.0",
+    "morgan": "^1.8.1",
+    "pug": "^2.0.0-beta11",
+    "routes": "^2.1.0",
+    "serve-favicon": "^2.3.2"
   }
 }

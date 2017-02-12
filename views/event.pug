@@ -7,15 +7,18 @@ html(lang='en')
         script(src='static/js/jquery-3.1.1.min.js')
         script(src='static/js/bootstrap.js')
         title Event Page
+
+
+
     body
         .text-center
             br
             br
             br
             |
-            button#startTransaction.btn.btn-primary(type='button', onclick="window.open('/charge','_self');$('#numberOfTransactions').text('Transaction has been made');") Click to make a transaction
+            button#startTransaction.btn.btn-primary(type='button', onclick="window.open('/charge','_self');$('#message').text('Transaction made');") Click to make a transaction
             br
             br
             h2
-                span#numberOfTransactions 0
-                |  people have made a transaction
+                span#message Click button to make transaction
+                |

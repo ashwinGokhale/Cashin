@@ -17,8 +17,6 @@ router.get('/setup', function (req, res) {
 router.post('/setup', function (req, res) {
 	settings.name = req.body.name;
 	settings.cost = req.body.cost;
-	console.log("Name: " + settings.name);
-	console.log("Cost: " + settings.cost);
 	res.render('event');
 
 });

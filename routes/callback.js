@@ -5,36 +5,50 @@
 var express = require('express');
 var settings = require('../config');
 var bodyParser = require('body-parser');
+var unirest = require('unirest');
 var router = express.Router();
 
-router.use(bodyParser.json()); // support json encoded bodies
+router.use(bodyParser.json({ type: 'application/*+json' })); // support json encoded bodies
 router.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 var post_for_token = "https://connect.squareup.com/oauth2/token";
 
-
-
-// Login Page
+// Handle oauth2 Page
 router.get('/callback', function (req, res) {
-    //if getting auth code...
-    //auth_code = request.args.get("code")
-    if (request.args.code) {
-        var auth_code = request.args.code;
-        var payload = {"client_id": settings.app_id, "client_secret": settings.secret, "code": auth_code};
+    // If getting auth code
+    if (req.query.code) {
+        var auth_code = req.query.code;
 
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", post_for_token, true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify({
-            data: payload
-        }));
+        var payload = {
+			"client_id": settings.app_id,
+			"client_secret": settings.secret,
+			"code": auth_code
+        };
 
-        //response = requests.post(post_for_token, data = payload);
-        res.render('setup');
+        var oauth_request_headers = {
+            'Authorization': 'Client ' + settings.secret,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'};
+
+
+		unirest.post(post_for_token)
+			.headers(oauth_request_headers)
+			.send(payload)
+			.end(function(response){
+				if (response.body.errors){
+					res.json({status: 400, errors: response.body.errors})
+				}else{
+					settings.userToken = auth_code;
+					res.redirect('/setup');
+				}
+			});
+
+
     }
-    //if receiving data from a sent transaction...
-	else if(request.args.data)
-        res.render('event');
+
+    // If receiving data from a sent transaction
+    else if(req.query.data)
+        res.redirect('/event');
 });
 
 module.exports = router;

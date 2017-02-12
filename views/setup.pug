@@ -12,13 +12,16 @@ html(lang='en')
             .text-center(style='width: 25%; margin: 0 auto')
                 h1.text-center Event Setup
                 br
-                .form-group.row
-                    label.col-xs-2.col-form-label(for='eventName') Event Name:
-                    .col-xs-10
-                        input#eventName.form-control(type='text', placeholder='Alpha Beta Chi Frat Party')
-                .form-group.row
-                    label.col-xs-2.col-form-label(for='eventCost') Cost
-                    .col-xs-10
-                        input#eventCost.form-control(type='number', placeholder='5')
+                form(action='/setup', method="POST", target='_blank')
+                    .form-group.row
+                        label.col-xs-2.col-form-label() Event Name:
+                        .col-xs-10
+                            input.form-control(type='text', placeholder='Alpha Beta Chi Frat Party', name='name')
+                    .form-group.row
+                        label.col-xs-2.col-form-label() Cost
+                        .col-xs-10
+                            input.form-control(type='number', placeholder='5', name='cost')
+
+                    input.btn.btn-primary(type='submit', value='Submit')
                 |
-                button.btn.btn-primary(onclick="window.open('/finishsetup', '_blank');") Submit
+

@@ -4,15 +4,21 @@
 
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
+
 var path = require('path');
 var routes = require('./routes');
 var setup = require('./routes/setup');
 var event = require('./routes/event');
+var callback  = require('./routes/callback');
+var charge = require('./routes/charge');
+var settings = require('./config');
 
-// Environment variables
-process.env['app_id'] = 'sq0idp-ZpqpEc9q3GCTgG2SX3KYRA';
-process.env['scope'] = 'PAYMENTS_WRITE%20PAYMENTS_READ%20CUSTOMERS_READ';
-process.env['state'] = 'loggedin';
+
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+	extended: true
+}));
 
 
 // Set view engine
@@ -35,10 +41,14 @@ app.all('/setup', setup);
 // Event Page
 app.all('/event', event);
 
+// Callback
+app.all('/callback', callback);
+
+// Charge
+app.all('/charge', charge);
+
 
 // Run Server
 var server = app.listen(app.get('port'), function () {
 	console.log("Listening on port %s", app.get('port'));
 });
-
-module.exports = app;
